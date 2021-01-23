@@ -1,0 +1,6 @@
+version: '3.6'
+services:
+  app:
+    image: redbull
+    ports:
+      - 8080:8080
