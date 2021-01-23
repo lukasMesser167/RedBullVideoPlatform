@@ -37,19 +37,27 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscribeToVideos(): void {
     this.subscriptions.push(
       this.videoService.getVideos(null, this.showImagesCount).subscribe((videos: any) => {
-        this.currentVideos = videos.items;
+        this.currentVideos = this.getValidVideos(videos.items);
       })
     );
   }
 
   private getPreviewImage(video: Video): string {
     if (video.resources.filter(resource => resource.type === 'reference_keyframe')?.length > 0) {
-      // return video.resources.filter(resource => resource.type === 'reference_keyframe')[0].url;
       return video.resources.filter(resource => resource.type === 'reference_keyframe')[0].url?.replace('/im/', '/im:i:w_600/');
     } else {
       return '../assets/redbulllogo.png';
     }
+  }
 
+  private getValidVideos(videos: Array<Video>): Array<Video> {
+    const filteredVideos: Array<Video> = [];
+    for (const video of videos) {
+      if (video.resources.filter(resource => resource.type === 'proxy_normal' || resource.type === 'proxy_hd_720')?.length > 0) {
+        filteredVideos.push(video);
+      }
+    }
+    return filteredVideos;
   }
 
   public previousBatch(): void {
@@ -58,23 +66,25 @@ export class AppComponent implements OnInit, OnDestroy {
       this.currentBatchStart = 0;
     }
     this.videoService.getVideos(this.currentBatchStart, this.showImagesCount, this.searchValue).subscribe((videos: any) => {
-      this.currentVideos = videos.items;
+      this.currentVideos = this.getValidVideos(videos.items);
     });
   }
 
   public nextBatch(): void {
     this.currentBatchStart = this.currentBatchStart + this.showImagesCount;
     this.videoService.getVideos(this.currentBatchStart, this.showImagesCount, this.searchValue).subscribe((videos: any) => {
-      this.currentVideos = videos.items;
+      this.currentVideos = this.getValidVideos(videos.items);
     });
   }
 
   private onClick(video: Video): void {
     const videos = video.resources.filter(resource => resource.type === 'proxy_normal' || resource.type === 'proxy_hd_720');
-    this.selectedVideo = videos[0];
-    const player = this.elRef.nativeElement.querySelector('video');
-    if (player) {
-      player.load();
+    if (videos?.length > 0) {
+      this.selectedVideo = videos[0];
+      const player = this.elRef.nativeElement.querySelector('video');
+      if (player) {
+        player.load();
+      }
     }
   }
 
@@ -88,14 +98,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public searchVideos(): void {
     this.videoService.getVideos(null, this.showImagesCount, this.searchValue).subscribe((videos: any) => {
-      this.currentVideos = videos.items;
+      this.currentVideos = this.getValidVideos(videos.items);
     });
   }
 
   public clearSearch(): void {
     this.searchValue = null;
     this.videoService.getVideos(null, this.showImagesCount, this.searchValue).subscribe((videos: any) => {
-      this.currentVideos = videos.items;
+      this.currentVideos = this.getValidVideos(videos.items);
     });
   }
 }
