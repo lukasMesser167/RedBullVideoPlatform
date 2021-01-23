@@ -5,10 +5,11 @@
   </div>
   <ng-container *ngIf="selectedVideo">
     <div class="video-player">
-      <video width="600" height="500" controls>
+      <video width="600" height="500" controls autoplay>
         <source [src]="selectedVideo.url" [type]="'video/' + selectedVideo.extension">
       </video>
     </div>
+    <button style="margin:10px;width: 100px;height:35px;align-self:center;" (click)="hideVideo()">Hide</button>
   </ng-container>
   <div class="bars">
     <div class="search-bar">
@@ -23,16 +24,6 @@
       <button class="control-button" (click)="nextBatch()">Next Videos</button>
     </div>
   </div>
-  <!--  <ng-container *ngIf="currentVideos && currentVideos.length">-->
-  <!--    <mat-grid-list class="image-list" md-cols="3" row-height="450px" gutterSize="5px">-->
-  <!--      <mat-grid-tile *ngFor="let video of currentVideos">-->
-  <!--        <div class="container">-->
-  <!--          <div class="video-title">{{video.attributes.productTitle}}</div>-->
-  <!--          <img style="height:400px;width:600px;" [src]="getPreviewImage(video)" (click)="onClick(video)">-->
-  <!--        </div>-->
-  <!--      </mat-grid-tile>-->
-  <!--    </mat-grid-list>-->
-  <!--  </ng-container>-->
 
   <ng-container *ngIf="currentVideos && currentVideos.length">
     <ion-list>

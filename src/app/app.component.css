@@ -67,7 +67,7 @@ app-root {
   display: block;
 }
 
-mat-grid-tile {
+ion-item {
   cursor: pointer;
 }
 

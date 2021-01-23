@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, Output} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, Output, ElementRef} from '@angular/core';
 import {VideoService} from './services/video.service';
 import {Video} from './models/video';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   currentBatchStart = 0;
   private subscriptions: Subscription[] = [];
 
-  constructor(private videoService: VideoService) {
+  constructor(private videoService: VideoService, private elRef: ElementRef) {
   }
 
 
@@ -72,6 +72,18 @@ export class AppComponent implements OnInit, OnDestroy {
   private onClick(video: Video): void {
     const videos = video.resources.filter(resource => resource.type === 'proxy_normal' || resource.type === 'proxy_hd_720');
     this.selectedVideo = videos[0];
+    const player = this.elRef.nativeElement.querySelector('video');
+    if (player) {
+      player.load();
+    }
+  }
+
+  public hideVideo(): void {
+    this.selectedVideo = null;
+    const player = this.elRef.nativeElement.querySelector('video');
+    if (player) {
+      player.hide();
+    }
   }
 
   public searchVideos(): void {
