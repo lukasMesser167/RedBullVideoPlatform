@@ -1,2 +1,51 @@
-<div class="red-bull-video-platform">
-</div>
+<ion-content class="red-bull-video-platform">
+  <div class="header">
+    <img style="height:250px;width:280px;" src="../assets/redbulllogo.png"/>
+    <div class="headline">RED BULL VIDEO PLATFORM</div>
+  </div>
+  <ng-container *ngIf="selectedVideo">
+    <div class="video-player">
+      <video width="600" height="500" controls>
+        <source [src]="selectedVideo.url" [type]="'video/' + selectedVideo.extension">
+      </video>
+    </div>
+  </ng-container>
+  <div class="bars">
+    <div class="search-bar">
+      <input [(ngModel)]="searchValue" placeholder="Search for videos..." type="text">
+      <button class="search-button" (click)="searchVideos()">Search</button>
+      <button class="search-button" (click)="clearSearch()">Clear</button>
+    </div>
+    <div class="control-bar">
+      <button class="control-button" (click)="previousBatch()">Previous Videos</button>
+      <div class="explanation">Amount of Videos to be displayed on one page:</div>
+      <input class="number-input" [(ngModel)]="showImagesCount" placeholder=9 type="number" min="0">
+      <button class="control-button" (click)="nextBatch()">Next Videos</button>
+    </div>
+  </div>
+  <!--  <ng-container *ngIf="currentVideos && currentVideos.length">-->
+  <!--    <mat-grid-list class="image-list" md-cols="3" row-height="450px" gutterSize="5px">-->
+  <!--      <mat-grid-tile *ngFor="let video of currentVideos">-->
+  <!--        <div class="container">-->
+  <!--          <div class="video-title">{{video.attributes.productTitle}}</div>-->
+  <!--          <img style="height:400px;width:600px;" [src]="getPreviewImage(video)" (click)="onClick(video)">-->
+  <!--        </div>-->
+  <!--      </mat-grid-tile>-->
+  <!--    </mat-grid-list>-->
+  <!--  </ng-container>-->
+
+  <ng-container *ngIf="currentVideos && currentVideos.length">
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="width: 1860px;display: flex;flex-wrap: wrap;">
+            <ion-item *ngFor="let video of currentVideos" style="height:450px;width:610px;display:flex;flex-direction:column;padding:5px">
+              <img style="height:400px;width:600px;" [src]="getPreviewImage(video)" (click)="onClick(video)">
+              <div class="video-title">{{video.attributes.productTitle}}</div>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ng-container>
+</ion-content>

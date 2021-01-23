@@ -1,0 +1,126 @@
+
+app-root {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: black;
+  color: white;
+  font-size: 22px
+}
+
+.red-bull-video-platform {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: 300px;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+}
+
+.headline {
+  color: white;
+  font-size: 64px;
+  font-family: "Trebuchet MS";
+}
+
+.video-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 600px;
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+}
+
+.search-bar > input {
+  height: 44px;
+  width: 400px;
+  font-size: 20px;
+}
+
+.search-bar > button {
+  height: 50px;
+  width: 110px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.image-list {
+  margin: auto;
+  width: 1800px;
+  display: block;
+}
+
+mat-grid-tile {
+  cursor: pointer;
+}
+
+.bars {
+  display: flex;
+  height: 90px;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px 50px;
+}
+
+.control-bar {
+  flex: 1;
+  display: flex;
+}
+
+.control-bar > .explanation {
+  height: 50px;
+  width: 450px;
+  font-size: 20px;
+  padding-left: 10px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.control-bar > input {
+  height: 44px;
+  width: 80px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.control-bar > .control-button {
+  height: 50px;
+  width: 200px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.video-title {
+  margin: 5px;
+  color: white;
+  font-size: 22px;
+  font-family: "Trebuchet MS";
+}
+
+ion-list {
+  display: flex;
+  justify-content: center;
+}
